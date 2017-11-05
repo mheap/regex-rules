@@ -39,6 +39,9 @@ r.evaluateRule("foo", "empty-or-long")); # false
 r.evaluateRule("http://example-is-long.com", "long-link")); # true
 r.evaluateRule("http://foo.com", "long-link"); # false
 
+// You can negate the result too
+r.evaluateRule("http://foo.com", "!long-link"); # true
+
 // Alternatively, you can run against all defined rules
 r.run("this-is-really-really-really-long");
 # {"empty-or-long": true, "long-link": false}
