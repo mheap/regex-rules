@@ -1,7 +1,7 @@
 {
     "name": "regex-rules",
     "description": "Apply a combination of regexes to an input and see if it passes or fails",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "main": "src/index.js",
     "scripts": {
         "test": "nyc mocha",

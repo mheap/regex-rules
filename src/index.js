@@ -1,6 +1,7 @@
-let RegexRules = function(regexes, rules) {
+let RegexRules = function(regexes, rules, config) {
   this.regexes = regexes;
   this.rules = rules;
+  this.config = config || {};
 };
 
 RegexRules.prototype.evaluateRegex = function(input, name) {
@@ -16,7 +17,14 @@ RegexRules.prototype.evaluateRegex = function(input, name) {
     throw new Error("Unknown regex name: " + name);
   }
 
-  let res = new RegExp(regex).test(input);
+  let regexp;
+  if (this.config.case_insensitive) {
+    regexp = new RegExp(regex, "i");
+  } else {
+    regexp = new RegExp(regex);
+  }
+
+  let res = regexp.test(input);
 
   if (isNegation) {
     return !res;

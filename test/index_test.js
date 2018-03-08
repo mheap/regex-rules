@@ -5,7 +5,7 @@ const RegexRules = require("../src/index");
 
 describe("RegexRules", function() {
   describe("#construct", function() {
-    it("persists the passed in regexes and rules", function() {
+    it("persists the passed in regexes, rules and config", function() {
       const r = new RegexRules(
         {
           "3-to-5-chars": ".{3,5}",
@@ -13,6 +13,9 @@ describe("RegexRules", function() {
         },
         {
           example: ["3-to-5-chars", "empty"]
+        },
+        {
+          case_insensitive: true
         }
       );
 
@@ -24,6 +27,36 @@ describe("RegexRules", function() {
       expect(r.rules).to.eql({
         example: ["3-to-5-chars", "empty"]
       });
+
+      expect(r.config).to.eql({
+        case_insensitive: true
+      });
+    });
+  });
+
+  describe("case sensitivity", function() {
+    it("is case sensitive by default", function() {
+      const r = new RegexRules(
+        {
+          demo: "demo"
+        },
+        {},
+        {}
+      );
+
+      expect(r.evaluateRegex("This is a Demo", "demo")).to.be.false;
+    });
+
+    it("is case insensitive when required", function() {
+      const r = new RegexRules(
+        {
+          demo: "demo"
+        },
+        {},
+        { case_insensitive: true }
+      );
+
+      expect(r.evaluateRegex("This is a Demo", "demo")).to.be.true;
     });
   });
 
