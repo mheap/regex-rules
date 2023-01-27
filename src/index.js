@@ -12,9 +12,13 @@ RegexRules.prototype.evaluateRegex = function(input, name) {
     name = name.substr(1);
   }
 
-  const regex = this.regexes[name];
+  let regex = this.regexes[name];
   if (!regex) {
-    throw new Error("Unknown regex name: " + name);
+    if (this.config.allow_direct_regex) {
+      regex = name;
+    } else {
+      throw new Error("Unknown regex name: " + name);
+    }
   }
 
   let regexp;

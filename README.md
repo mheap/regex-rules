@@ -48,3 +48,41 @@ r.run("this-is-really-really-really-long");
 r.run("http://example-is-long.com");
 # {"empty-or-long": true, "long-link": true}
 ```
+
+## Config
+
+You can make regex matches case insensitive
+
+```javascript
+const RegexRules = require("regex-rules");
+const r = new RegexRules(
+  {
+    "example-domain: "^http://example\\.com",
+  },
+  {
+    "insecure-example-com": ["example-domain"],
+  },
+  {
+    case_insensitive: true
+  }
+
+  r.evaluateRule("http://EXAMPLE.com", "insecure-example-com"); # true
+);
+```
+
+If you don't need to reuse regular expressions, you can provide the regex directly in the rule definition rather than referencing a regex by name:
+
+```javascript
+const RegexRules = require("regex-rules");
+const r = new RegexRules(
+  {},
+  {
+    "insecure-example-com": ["^http://example\\.com"],
+  },
+  {
+        allow_direct_regex: true
+  }
+
+  r.evaluateRule("http://EXAMPLE.com", "insecure-example-com"); # true
+);
+```
