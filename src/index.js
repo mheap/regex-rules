@@ -1,10 +1,10 @@
-let RegexRules = function(regexes, rules, config) {
+let RegexRules = function (regexes, rules, config) {
   this.regexes = regexes;
   this.rules = rules;
   this.config = config || {};
 };
 
-RegexRules.prototype.evaluateRegex = function(input, name) {
+RegexRules.prototype.evaluateRegex = function (input, name) {
   let isNegation = false;
 
   if (name.substr(0, 1) === "!") {
@@ -37,7 +37,7 @@ RegexRules.prototype.evaluateRegex = function(input, name) {
   return res;
 };
 
-RegexRules.prototype.evaluateRule = function(input, ruleName) {
+RegexRules.prototype.evaluateRule = function (input, ruleName) {
   let isPassing = false;
   for (let r in this.rules[ruleName]) {
     let condition = this.rules[ruleName][r];
@@ -51,7 +51,7 @@ RegexRules.prototype.evaluateRule = function(input, ruleName) {
   return isPassing;
 };
 
-RegexRules.prototype.evaluatePair = function(input, pair) {
+RegexRules.prototype.evaluatePair = function (input, pair) {
   let isPassing = true;
   for (let i in pair) {
     isPassing = isPassing && this.evaluateRegex(input, pair[i]);
@@ -59,7 +59,7 @@ RegexRules.prototype.evaluatePair = function(input, pair) {
   return isPassing;
 };
 
-RegexRules.prototype.run = function(input) {
+RegexRules.prototype.run = function (input) {
   let ruleStatus = {};
 
   // Run through each tag
