@@ -117,6 +117,28 @@ describe("RegexRules", function() {
     it("fails an AND statement", function() {
       expect(r.evaluateRule("http://foo.com", "long-link")).to.be.false;
     });
+
+    it("fails with a directly provided regex by default", function() {
+      expect(r.evaluateRule("http://demo.example.com", "is-example-domain")).to
+        .be.false;
+    });
+  });
+
+  describe("#evaluateRule (direct regex)", function() {
+    const r = new RegexRules(
+      {},
+      {
+        "is-example-domain": ["^http://\\w+.example.com$"]
+      },
+      {
+        allow_direct_regex: true
+      }
+    );
+
+    it("evaluates a regex that is directly provided", function() {
+      expect(r.evaluateRule("http://demo.example.com", "is-example-domain")).to
+        .be.true;
+    });
   });
 
   describe("#run", function() {
